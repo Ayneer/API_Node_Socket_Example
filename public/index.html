@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+    <h1>Hola esta es la pagina</h1>
+
+    <div id="consumo"></div>
+    <input type="text" id="idCliente" placeholder="Ingrese el ID cliente">
+    <button id="btnEnviar">Enviar id </button>
+    
+
+    <script>
+        var socket = io('http://localhost:8080');
+        
+        socket.on('connect', function(){});
+
+        let btnEnviar = document.getElementById('btnEnviar');
+        let id = document.getElementById('idCliente');
+        let consumo = document.getElementById('consumo');
+
+        btnEnviar.addEventListener('click', function(){
+
+            socket.emit('cliente', id.value);
+
+        });
+
+        socket.on('consumo', (dato)=>{
+            consumo.innerHTML = ` <p>mi consumo real es: ${dato} kwh</p> `;
+        });
+
+  </script>
+</body>
+</html>
